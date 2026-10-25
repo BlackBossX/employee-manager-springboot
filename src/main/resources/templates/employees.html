@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Employee management</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head>
+<body><header><a th:href="@{/employees}">Employee manager</a></header><main>
+<h1>Employees</h1><p class="intro">Keep your team's contact details, departments and salaries up to date.</p>
+<p class="success" role="status" th:if="${success}" th:text="${success}"></p>
+<section aria-labelledby="add-heading"><h2 id="add-heading">Add an employee</h2>
+<form th:action="@{/employees}" th:object="${employee}" method="post" novalidate>
+<div th:replace="~{fragments :: fields}"></div><button type="submit">Save employee</button>
+</form></section>
+<section aria-labelledby="directory-heading"><div class="section-heading"><h2 id="directory-heading">Employee directory <span class="count" th:text="${#lists.size(employees)}">0</span></h2>
+<form class="search" th:action="@{/employees}" method="get"><label class="sr-only" for="keyword">Search employees by name</label><input id="keyword" name="keyword" th:value="${keyword}" placeholder="Search by name"><button type="submit">Search</button><a th:if="${keyword != null and !keyword.isBlank()}" th:href="@{/employees}">Clear</a></form></div>
+<p class="empty" th:if="${#lists.isEmpty(employees)}" th:text="${keyword != null and !keyword.isBlank() ? 'No employees match your search. Try another name.' : 'No employees yet. Add your first employee using the form above.'}"></p>
+<div class="table-scroll" role="region" aria-label="Employee directory" tabindex="0" th:unless="${#lists.isEmpty(employees)}"><table>
+<thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Phone</th><th scope="col">Department</th><th scope="col" class="number">Salary</th><th scope="col">Actions</th></tr></thead>
+<tbody><tr th:each="person : ${employees}"><td th:text="${person.fullName}"></td><td th:text="${person.email}"></td><td th:text="${person.phone}"></td><td th:text="${person.department}"></td><td class="number" th:text="${#numbers.formatDecimal(person.salary, 1, 'COMMA', 2, 'POINT')}"></td><td><div class="actions"><a th:href="@{/employees/{id}/edit(id=${person.id})}" th:aria-label="|Edit ${person.fullName}|">Edit</a><form th:action="@{/employees/{id}/delete(id=${person.id})}" method="post" onsubmit="return confirm('Delete this employee? This action cannot be undone.');"><button class="danger" type="submit" th:aria-label="|Delete ${person.fullName}|">Delete</button></form></div></td></tr></tbody>
+</table></div></section></main></body></html>

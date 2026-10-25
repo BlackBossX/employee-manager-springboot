@@ -1,0 +1,7 @@
+<!doctype html><html lang="en" xmlns:th="http://www.thymeleaf.org"><body><div th:fragment="fields" class="fields">
+  <div><label for="fullName">Full name</label><input id="fullName" th:field="*{fullName}" maxlength="100" autocomplete="name" aria-describedby="fullName-error"><p id="fullName-error" class="error" th:errors="*{fullName}"></p></div>
+  <div><label for="email">Email</label><input id="email" th:field="*{email}" type="email" maxlength="150" autocomplete="email" aria-describedby="email-error"><p id="email-error" class="error" th:errors="*{email}"></p></div>
+  <div><label for="phone">Phone</label><input id="phone" th:field="*{phone}" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" aria-describedby="phone-hint phone-error"><small id="phone-hint">10 digits, without spaces.</small><p id="phone-error" class="error" th:errors="*{phone}"></p></div>
+  <div><label for="department">Department</label><input id="department" th:field="*{department}" maxlength="100" aria-describedby="department-error"><p id="department-error" class="error" th:errors="*{department}"></p></div>
+  <div><label for="salary">Salary</label><input id="salary" th:field="*{salary}" type="number" min="0.01" max="9999999999.99" step="0.01" aria-describedby="salary-error"><p id="salary-error" class="error" th:errors="*{salary}"></p></div>
+</div></body></html>

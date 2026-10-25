@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Employee management</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head>
+<body><header><a th:href="@{/employees}">Employee manager</a></header><main>
+<a th:href="@{/employees}">Back to employees</a><h1>Edit employee</h1><p class="intro">Update the details below, then save your changes.</p>
+<section><form th:action="@{/employees/{id}/update(id=${employeeId})}" th:object="${employee}" method="post" novalidate><div th:replace="~{fragments :: fields}"></div><div class="actions"><button type="submit">Update employee</button><a th:href="@{/employees}">Cancel</a></div></form></section>
+</main></body></html>
